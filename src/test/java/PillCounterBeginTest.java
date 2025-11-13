@@ -26,6 +26,28 @@ public class PillCounterBeginTest {
     assertTrue(result);
   }
 
+  @Test
+  public void decoratorTest() {
+    PillCounter counter = new PillCounterDecorator(new LoggingPillCounter());
+    boolean result = conveyerBelt(counter);
+    assertTrue(result);
+  }
+
+  @Test
+  public void decoratorAddCounterTest() {
+    PillCounterAddCounter counter = new PillCounterAddCounter(new LoggingPillCounter());
+    boolean result = conveyerBelt(counter);
+    System.out.println(counter.totalPillCount());
+    assertTrue(result);
+  }
+
+  @Test
+  public void decoratorLazyAddPillTest() {
+    PillCounter counter = new PillCounterLazyCounter(new LoggingPillCounter());
+    boolean result = conveyerBelt(counter);
+    assertTrue(result);
+  }
+
   private boolean conveyerBelt(PillCounter counter) {
     //make 100 bottles of 100 pills each
     for (int bottle = 0; bottle < 100; bottle += 1) {
